@@ -28,6 +28,12 @@ function Login() {
                     <input className="max-w-[300px] w-full h-[45px] pl-[10px] border #D0DBE7 rounded-[12px] outline-none mt-[8px]" placeholder="user@example.com" type="email" name="" id="" /><br />
                     <label className="" htmlFor="">Parol</label><br />
                     <input className="max-w-[300px] w-full h-[45px] pl-[10px] border #D0DBE7 rounded-[12px] outline-none mt-[8px]" placeholder="••••••••" type="password" name="" id="" />
+
+                    {/* Login Button */}
+
+                    <div className="mt-[25px]">
+                        <button className="bg-[#197FE6] max-w-[300px] w-full h-[50px] py-[12px] px-[84px] rounded-[12px]"><a className="text-[#fff] text-[16px] font-bold" href="/">Profilga Kirish → </a></button>
+                    </div>
                 </form>
             </div>
         </div>
