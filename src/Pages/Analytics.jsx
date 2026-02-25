@@ -61,11 +61,11 @@ function Analytics() {
       </div>
       <div className="flex justify-between bg-[#FFFFFF] border border-[#E5E7EB] px-[10px] py-[6px] rounded-[10px] mt-[10px]">
         <div>
-          <h2 className="text-[14px] font-bold text-[#111111]">Sobirjon Otajanov</h2>
-          <h3 className="text-[11px] font-normal text-[#6B7280]">Qarzidan 150 ming to’ladi.</h3>
+          <h2 className="text-[14px] font-bold text-[#111111]">Azizbek Kamilov</h2>
+          <h3 className="text-[11px] font-normal text-[#6B7280]">Qarzini to’ladi.</h3>
         </div>
 
-        <h2 className="text-[14px] font-bold text-[#059669]">+150.000 so’m</h2>
+        <h2 className="text-[14px] font-bold text-[#059669]">+240.000 so’m</h2>
       </div>
       <div className="flex justify-between bg-[#FFFFFF] border border-[#E5E7EB] px-[10px] py-[6px] rounded-[10px] mt-[10px]">
         <div>
