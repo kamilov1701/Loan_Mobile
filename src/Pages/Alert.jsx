@@ -11,7 +11,7 @@ function Alert() {
 
         <div>
             <div className="p-[27px] bg-[#FFFFFF] border boder-[#E5E7EB]">
-                <h2 className="text-center font-bold text-xl text-center">Ogohlantirish</h2>
+                <h2 className="text-center font-bold text-xl">Ogohlantirish</h2>
             </div>
         </div>
 
