@@ -109,7 +109,9 @@
 
 import React, { useState } from "react";
 import analit from "../../public/analitic.png";
-import { ArrowBigUpDash } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 function Analytics() {
 
@@ -119,10 +121,14 @@ function Analytics() {
     <div>
 
       {/* TOP NAVBAR (same structure) */}
-      <div className="flex items-center justify-between bg-[#FFFFFF] p-[20px] border border-[#E5E7EB]">
-        <h2 className="text-center font-bold text-xl">Analitika</h2>
-        <ArrowBigUpDash className="bg-[#E5E7EB] w-[37px] h-[37px] p-[7px] rounded-full" />
-      </div>
+      {/* shu jayda // flex gap-[110px] //  bolishi garak*/}
+         <div className="py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+           {/* <div className="flex gap-[85px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+                 <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
+                <h2 className="font-bold text-xl text-center">Qarz Ayirish</h2>
+            </div> */}
+            <h2 className="font-bold text-xl text-center">Analitika</h2>
+        </div>
 
       <section className="px-[22px] max-w-[1200px] mx-auto">
 

@@ -1,4 +1,7 @@
 import React from "react";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 // Images{
 import phone from "../../public/phone.png"
@@ -8,11 +11,13 @@ import sms from "../../public/sms.png"
 
 function Alert() {
     return <div>
-
-        <div>
-            <div className="p-[27px] bg-[#FFFFFF] border boder-[#E5E7EB]">
-                <h2 className="font-bold text-xl text-center">Ogohlantirish</h2>
-            </div>
+ {/* shu jayda // flex gap-[110px] //  bolishi garak*/}
+        <div className="py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+         {/* <div className="flex gap-[85px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+                 <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
+                <h2 className="font-bold text-xl text-center">Qarz Ayirish</h2>
+            </div> */}
+            <h2 className="font-bold text-xl text-center">Ogohlantirish</h2>
         </div>
 
         <section className="px-[20px]">

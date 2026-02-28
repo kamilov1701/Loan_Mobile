@@ -318,6 +318,7 @@
 
 
 import React from "react";
+import { Link } from "react-router-dom";
 import Notificationimg from "../../public/Not.png";
 
 // Images
@@ -433,8 +434,9 @@ function Home() {
 
             <div className="flex justify-between items-center mt-[12px] flex-wrap gap-3">
               <div className="flex gap-[17px]">
-                <img src={plus} alt="" />
-                <img src={minus} alt="" />
+                {/* <img src={plus} alt="" /> */}
+                 <Link to="/addloan"><img src={plus} alt="" /></Link>
+                 <Link to="/reducLoan"><img src={minus} alt="" /></Link>
                 <img src={time} alt="" />
               </div>
 

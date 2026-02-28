@@ -287,6 +287,8 @@ import time from "../../public/Clock.png";
 import eye from "../../public/Eye.png";
 import pen from "../../public/pen.png";
 import del from "../../public/delete.png";
+import { Link } from "react-router-dom";
+
 
 function ListLoaner() {
   const loaners = [
@@ -302,14 +304,14 @@ function ListLoaner() {
     <div>
 
       {/* NAVBAR */}
-      <nav className="bg-white border-b border-[#E5E7EB]">
-        <div className="container mx-auto px-4 py-5 flex items-center gap-4">
-          <ArrowLeft className="cursor-pointer" />
-          <h2 className="font-bold text-lg sm:text-xl">
-            Qarzdorlar Ro’yxati
-          </h2>
-        </div>
-      </nav>
+       {/* shu jayda // flex gap-[110px] //  bolishi garak*/}
+     <div className=" py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+               {/* <div className="flex gap-[85px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+                 <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
+                <h2 className="font-bold text-xl text-center">Qarz Ayirish</h2>
+            </div> */}
+                <h2 className="font-bold text-xl text-center">Qarzdorlar Ro’yxati</h2>
+            </div>
 
       {/* LIST SECTION */}
       <section className="container mx-auto px-4 mt-6">
