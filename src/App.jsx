@@ -56,7 +56,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./Components/Navbar";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Home from "./pages/Home";
