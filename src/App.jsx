@@ -59,13 +59,13 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import Navbar from "./Components/Navbar";
 import ProtectedRoute from "./ProtectedRoute";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import ListLoaner from "./pages/ListLoaner";
-import Analytics from "./pages/Analytics";
-import Alert from "./pages/Alert";
-import Profile from "./pages/Profile";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import ListLoaner from "./Pages/ListLoaner";
+import Analytics from "./Pages/Analytics";
+import Alert from "./Pages/Alert";
+import Profile from "./Pages/Profile";
 
 function Layout() {
   const location = useLocation();
