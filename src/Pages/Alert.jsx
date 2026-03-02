@@ -3,17 +3,14 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 
-// Images{
-import phone from "../../public/phone.png"
-import sms from "../../public/sms.png"
-
-// }
+import { BsFillChatRightTextFill } from "react-icons/bs";
+import { FaPhoneVolume } from "react-icons/fa6";
 
 function Alert() {
     return <div>
- {/* shu jayda // flex gap-[110px] //  bolishi garak*/}
+        {/* shu jayda // flex gap-[110px] //  bolishi garak*/}
         <div className="py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
-         {/* <div className="flex gap-[85px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+            {/* <div className="flex gap-[85px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
                  <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
                 <h2 className="font-bold text-xl text-center">Qarz Ayirish</h2>
             </div> */}
@@ -57,8 +54,8 @@ function Alert() {
                         <button className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]">To’lov Sanasini o’zgartirish</button>
 
                         <div className="flex gap-[10px]">
-                            <img className="bg-[#DCFCE7] p-[8px] w-[35px] rounded-[12px]" src={phone} alt="" />
-                            <img className="bg-[#DBEAFE] p-[8px] w-[35px] rounded-[12px]" src={sms} alt="" />
+                            <FaPhoneVolume size={24} className="text-[red]"/>
+                            <BsFillChatRightTextFill  size={24} className="text-[#169c74]"/>
                         </div>
                     </div>
                 </div>
@@ -85,8 +82,8 @@ function Alert() {
                         <button className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]">To’lov Sanasini o’zgartirish</button>
 
                         <div className="flex gap-[10px]">
-                            <img className="bg-[#DCFCE7] p-[8px] w-[35px] rounded-[12px]" src={phone} alt="" />
-                            <img className="bg-[#DBEAFE] p-[8px] w-[35px] rounded-[12px]" src={sms} alt="" />
+                            <FaPhoneVolume size={24} className="text-[red]"/>
+                            <BsFillChatRightTextFill size={24} className="text-[#169c74]"/>
                         </div>
                     </div>
                 </div>
@@ -113,8 +110,8 @@ function Alert() {
                         <button className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]">To’lov Sanasini o’zgartirish</button>
 
                         <div className="flex gap-[10px]">
-                            <img className="bg-[#DCFCE7] p-[8px] w-[35px] rounded-[12px]" src={phone} alt="" />
-                            <img className="bg-[#DBEAFE] p-[8px] w-[35px] rounded-[12px]" src={sms} alt="" />
+                            <FaPhoneVolume size={24} className="text-[red]"/>
+                            <BsFillChatRightTextFill size={24} className="text-[#169c74]"/>
                         </div>
                     </div>
                 </div>
@@ -141,8 +138,8 @@ function Alert() {
                         <button className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]">To’lov Sanasini o’zgartirish</button>
 
                         <div className="flex gap-[10px]">
-                            <img className="bg-[#DCFCE7] p-[8px] w-[35px] rounded-[12px]" src={phone} alt="" />
-                            <img className="bg-[#DBEAFE] p-[8px] w-[35px] rounded-[12px]" src={sms} alt="" />
+                            <FaPhoneVolume size={24} className="text-[red]" />
+                            <BsFillChatRightTextFill size={24} className="text-[#169c74]"/>
                         </div>
                     </div>
                 </div>
@@ -169,8 +166,8 @@ function Alert() {
                         <button className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]">To’lov Sanasini o’zgartirish</button>
 
                         <div className="flex gap-[10px]">
-                            <img className="bg-[#DCFCE7] p-[8px] w-[35px] rounded-[12px]" src={phone} alt="" />
-                            <img className="bg-[#DBEAFE] p-[8px] w-[35px] rounded-[12px]" src={sms} alt="" />
+                            <FaPhoneVolume size={24} className="text-[red]" />
+                            <BsFillChatRightTextFill size={24} className="text-[#169c74]"/>
                         </div>
                     </div>
                 </div>

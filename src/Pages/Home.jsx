@@ -319,15 +319,8 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import analit from "../../public/analitic.png";
 import Notificationimg from "../../public/Not.png";
-
-// Images
-import plus from "../../public/plus.png";
-import minus from "../../public/minus.png";
-import time from "../../public/Clock.png";
-import eye from "../../public/Eye.png";
-import pen from "../../public/pen.png";
-import del from "../../public/delete.png";
 
 function Home() {
   return (
@@ -388,6 +381,14 @@ function Home() {
         </div>
       </div>
 
+
+      {/* Responsive image */}
+      <img
+        src={analit}
+        alt=""
+        className="w-full max-w-full h-auto px-[15px] mt-[10px]"
+      />
+
       {/* Add Loan Button */}
       <div className="container mx-auto px-4 mt-[25px]">
         <div className="max-w-[350px] sm:max-w-[450px] md:max-w-[600px] mx-auto">
@@ -401,56 +402,6 @@ function Home() {
           </button>
         </div>
       </div>
-
-      {/* Loan List */}
-      <section className="container mx-auto px-4 mt-[14px]">
-
-        {/* Card */}
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-          <div
-            key={index}
-            className="bg-[#ffffff] border border-[#E5E7EB] px-[9px] py-[8px] rounded-[12px] mt-[14px] max-w-[350px] sm:max-w-[450px] md:max-w-[600px] mx-auto"
-          >
-            <div className="flex justify-between items-center flex-wrap gap-2">
-              <div className="flex gap-[9px]">
-                <span className="bg-[#DBEAFE] text-[11px] font-bold text-[#197FE6] px-[8px] py-[9px] rounded-full">
-                  SO
-                </span>
-
-                <div>
-                  <h2 className="text-[#000000] text-[14px] font-bold">
-                    Sobirjon Otajanov
-                  </h2>
-                  <p className="text-[#64748B] text-[11px]">
-                    Comment
-                  </p>
-                </div>
-              </div>
-
-              <h2 className="text-[#197FE6] text-[14px] font-bold">
-                150.000 so’m
-              </h2>
-            </div>
-
-            <div className="flex justify-between items-center mt-[12px] flex-wrap gap-3">
-              <div className="flex gap-[17px]">
-                {/* <img src={plus} alt="" /> */}
-                 <Link to="/addloan"><img src={plus} alt="" /></Link>
-                 <Link to="/reducLoan"><img src={minus} alt="" /></Link>
-                <img src={time} alt="" />
-              </div>
-
-              <div className="bg-[#FFF7ED] py-[9px] px-[12px] rounded-full flex gap-[15px]">
-                <img src={eye} alt="" />
-                <img src={pen} alt="" />
-                <img src={del} alt="" />
-              </div>
-            </div>
-          </div>
-        ))}
-
-      </section>
-
     </div>
   );
 }
