@@ -66,8 +66,9 @@ import ListLoaner from "./Pages/ListLoaner";
 import Analytics from "./Pages/Analytics";
 import Alert from "./Pages/Alert";
 import Profile from "./Pages/Profile";
-import AddLoan from "./Pages/AddLoan"
-import ReducLoan from "./Pages/ReducLoan"
+import AddLoan from "./Pages/AddLoan";
+import ReducLoan from "./Pages/AddLoan";
+import History from "./Pages/History";
 
 function Layout() {
   const location = useLocation();
@@ -89,7 +90,8 @@ function Layout() {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/addloan" element={<ProtectedRoute><AddLoan /></ProtectedRoute>} />
           <Route path="/reducLoan" element={<ProtectedRoute><ReducLoan /></ProtectedRoute>} />
-        </Routes>
+          <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+        </Routes> 
       </div>
 
       {!hideNavbar && <Navbar />}
