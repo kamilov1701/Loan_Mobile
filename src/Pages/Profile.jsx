@@ -318,7 +318,7 @@ function Profile() {
                 </div>
             </div>
 
-            <section className="px-[22px]">
+            <section className="px-[22px] mt-[30px]">
                 <div>
                     <div className="text-center flex flex-col items-center">
                         <img src={pro} alt="" />

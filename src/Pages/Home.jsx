@@ -395,7 +395,7 @@ function Home() {
           <button className="bg-[#197FE6] w-full h-[55px] rounded-[12px]">
             <a
               className="text-[#fff] text-[15px] font-bold"
-              href="/List"
+              href="/Camera"
             >
               + Yangi Qarzdorni Yaratish
             </a>
