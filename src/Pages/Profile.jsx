@@ -272,19 +272,20 @@
 
 
 
-
-
 import React, { useEffect, useState } from "react";
-// Images
 import pro from "../../public/profile.png";
 
 import { auth, db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
     const [userData, setUserData] = useState(null);
+    const [paidLoaners, setPaidLoaners] = useState([]);
+    const [activeCount, setActiveCount] = useState(0);
+    const [search, setSearch] = useState("");
+
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -292,6 +293,7 @@ function Profile() {
         navigate("/Login");
     };
 
+    // Fetch user info
     useEffect(() => {
         const fetchUserData = async () => {
             if (auth.currentUser) {
@@ -304,11 +306,32 @@ function Profile() {
                 navigate("/Login");
             }
         };
-
         fetchUserData();
     }, [navigate]);
 
-    if (!userData) return null; // or a loader if you want
+    // Fetch loaners
+    useEffect(() => {
+        const unsubscribe = onSnapshot(collection(db, "loaners"), (snapshot) => {
+            const allLoaners = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            const paid = allLoaners.filter(l => Number(l.amount) === 0);
+            const active = allLoaners.filter(l => Number(l.amount) > 0);
+
+            setPaidLoaners(paid);
+            setActiveCount(active.length);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    if (!userData) return null;
+
+    const filteredPaid = paidLoaners.filter(l =>
+        l.fullName?.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div>
@@ -342,29 +365,57 @@ function Profile() {
                         </button>
                     </div>
 
-                    {/* Rest of your profile stats and transaction history */}
+                    {/* Stats */}
                     <div className="flex justify-between mt-[11px]">
                         <div className="bg-[#F3F4F6] rounded-[12px] px-[14px] py-[6px] w-[165px] border-[#E5E7EB] border">
-                            <p className="text-[#6B7280] text-[12px] font-normal">Qarzni  To’liq To’laganlar</p>
+                            <p className="text-[#6B7280] text-[12px] font-normal">Qarzni To’liq To’laganlar</p>
                             <span className="flex gap-[20px] mt-[13px]">
                                 <h3 className="text-[18px] font-extrabold text-[#111111]">Soni:</h3>
-                                <h4 className="text-[#197FE6] text-[18px] font-bold">42</h4>
+                                <h4 className="text-[#197FE6] text-[18px] font-bold">{paidLoaners.length}</h4>
                             </span>
                         </div>
                         <div className="bg-[#F3F4F6] rounded-[12px] px-[14px] py-[6px] w-[165px] border-[#E5E7EB] border">
                             <p className="text-[#6B7280] text-[12px] font-normal">Hozirda Aktiv Qarzdorlar</p>
                             <span className="flex gap-[20px] mt-[13px]">
                                 <h3 className="text-[18px] font-extrabold text-[#111111]">Soni:</h3>
-                                <h4 className="text-[#F97316] text-[18px] font-bold">8</h4>
+                                <h4 className="text-[#F97316] text-[18px] font-bold">{activeCount}</h4>
                             </span>
                         </div>
                     </div>
 
-                    {/* Transaction history */}
+                    {/* Fully Paid List */}
                     <div className="mt-[54px]">
                         <h1 className="text-[#111111] text-[18px] font-bold">To’liq Qarzni To’laganlar</h1>
-                        {/* Keep all your existing transactions divs as-is, unchanged */}
+
+                        {/* Search */}
+                        <input
+                            type="text"
+                            placeholder="Ism bo‘yicha qidirish..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="mt-[15px] px-[15px] py-[10px] w-full border border-[#E5E7EB] rounded-[12px]"
+                        />
+
+                        {/* List */}
+                        <div className="mt-[20px]">
+                            {filteredPaid.map(item => (
+                                <div
+                                    key={item.id}
+                                    className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-[12px] px-[15px] py-[10px] mb-[10px]"
+                                >
+                                    <h3 className="font-bold text-[14px]">{item.fullName}</h3>
+                                    <p className="text-[12px] text-[#6B7280]">{item.mainPhone}</p>
+                                </div>
+                            ))}
+
+                            {filteredPaid.length === 0 && (
+                                <p className="text-[#6B7280] text-[13px] mt-[10px]">
+                                    Hech kim topilmadi
+                                </p>
+                            )}
+                        </div>
                     </div>
+
                 </div>
             </section>
         </div>

@@ -340,6 +340,8 @@ function Login() {
                                     Profilga Kirish →
                                 </span>
                             </button>
+
+                            <p className="mt-[20px]">Akkauntingiz yo'qmi? <span className="text-[#2d5bf0] ml-[10px]"><a href="/Register">Ro'yhatdan O'ting</a></span></p>
                         </div>
 
                     </form>
