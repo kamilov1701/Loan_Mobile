@@ -409,7 +409,7 @@ function Alert() {
     }, []);
 
     const filteredAlerts = alerts.filter(alert =>
-        activeTab === "upcoming" ? alert.daysLeft >= 0 && alert.daysLeft <= 7 : alert.daysLeft < 0
+        activeTab === "upcoming" ? alert.daysLeft >= 0 && alert.daysLeft <= 3 : alert.daysLeft < 0
     );
 
     const toggleDateInput = (id) => {
@@ -474,7 +474,7 @@ function Alert() {
 
                 <div className="flex mt-[14px] justify-between">
                     <h2 className="font-bold text-[15px] text-[#111111]">
-                        {activeTab === "upcoming" ? "To’lov kuniga 7 kun qolganlar" : "Muddati o’tgan to’lovlar"}
+                        {activeTab === "upcoming" ? "To’lov kuniga 3 kun qolganlar" : "Muddati o’tgan to’lovlar"}
                     </h2>
                     <span className="text-[11px] font-normal text-[#C2410C] bg-[#FED7AA] px-[6px] py-[8px] rounded-[12px]">
                         {filteredAlerts.length}ta ogohlantirish
