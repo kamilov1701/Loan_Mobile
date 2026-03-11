@@ -1204,19 +1204,19 @@ function Camera() {
                 </div>
             </section>
 
-            <div className="flex gap-[47px] py-[8px] items-end px-[17px] bg-[#ffffff] border border-[#E5E7EB] absolute bottom-0 z-10">
+            <div className="flex gap-[85px] py-[8px] items-end px-[17px] bg-[#ffffff] border border-[#E5E7EB] absolute bottom-0 z-10">
                 <button
                     onClick={handleAddLoan}
-                    className="bg-[#197FE6] text-[#fff] border-none px-[18px] py-[13px] rounded-[12px] text-[16px] font-bold"
+                    className="bg-[#197FE6] text-[#fff] border-none px-[18px] py-[13px] rounded-[12px] text-[14px] font-normal"
                 >
-                    ✓ Qarzni Qo'shish
+                     Qarzni Qo'shish
                 </button>
 
                 <button
                     onClick={() => navigate("/")}
-                    className="bg-[#E11D48] text-[#fff] border-none px-[18px] py-[13px] rounded-[12px] text-[16px] font-bold"
+                    className="bg-[#E11D48] text-[#fff] border-none px-[18px] py-[13px] rounded-[12px] text-[14px] font-normal"
                 >
-                    - Bekor Qilish
+                     Bekor Qilish
                 </button>
             </div>
         </div>

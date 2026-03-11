@@ -370,6 +370,178 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import { ArrowLeft } from "lucide-react";
+// import { Link } from "react-router-dom";
+// import { db } from "../firebase";
+// import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
+
+// import { BsFillChatRightTextFill } from "react-icons/bs";
+// import { FaPhoneVolume } from "react-icons/fa6";
+
+// function Alert() {
+//     const [activeTab, setActiveTab] = useState("upcoming");
+//     const [alerts, setAlerts] = useState([]);
+
+//     useEffect(() => {
+//         const unsubscribe = onSnapshot(collection(db, "loaners"), (snapshot) => {
+//             const data = snapshot.docs.map(docItem => {
+//                 const loaner = docItem.data();
+//                 const today = new Date();
+//                 const lastDate = loaner.lastDate ? new Date(loaner.lastDate.seconds ? loaner.lastDate.seconds * 1000 : loaner.lastDate) : today;
+//                 const diffDays = Math.ceil((lastDate - today) / (1000 * 60 * 60 * 24));
+
+//                 return {
+//                     id: docItem.id,
+//                     fullName: loaner.fullName || "No Name",
+//                     phones: [loaner.mainPhone, loaner.secondaryPhone].filter(Boolean),
+//                     amount: loaner.amount || 0,
+//                     lastDate,
+//                     daysLeft: diffDays,
+//                     showDateInput: false,
+//                     newDate: "",
+//                     telegram: loaner.telegram || "",
+//                 };
+//             });
+//             setAlerts(data);
+//         });
+//         return () => unsubscribe();
+//     }, []);
+
+//     const filteredAlerts = alerts.filter(alert =>
+//         activeTab === "upcoming" ? alert.daysLeft >= 0 && alert.daysLeft <= 3 : alert.daysLeft < 0
+//     );
+
+//     const toggleDateInput = (id) => {
+//         setAlerts(alerts.map(a => a.id === id ? { ...a, showDateInput: !a.showDateInput } : a));
+//     };
+
+//     const handleDateChange = (id, value) => {
+//         setAlerts(alerts.map(a => a.id === id ? { ...a, newDate: value } : a));
+//     };
+
+//     const saveNewDate = async (id) => {
+//         const alertItem = alerts.find(a => a.id === id);
+//         if (!alertItem.newDate) return;
+
+//         // Update in Firestore
+//         await updateDoc(doc(db, "loaners", id), { lastDate: new Date(alertItem.newDate) });
+
+//         // Update local state
+//         const today = new Date();
+//         const lastDate = new Date(alertItem.newDate);
+//         const diffDays = Math.ceil((lastDate - today) / (1000 * 60 * 60 * 24));
+
+//         setAlerts(alerts.map(a => a.id === id ? { ...a, lastDate, daysLeft: diffDays, showDateInput: false, newDate: "" } : a));
+//     };
+
+//     const handleCall = (phones) => {
+//         phones.forEach(phone => window.open(`tel:${phone}`, "_self"));
+//     };
+
+//     const handleTelegram = (phones, name) => {
+//         if (!phones.length) return alert(`No phone numbers for ${name}`);
+//         phones.forEach(phone => {
+//             const message = encodeURIComponent(`Salom ${name}, sizning to'lovingiz haqida ogohlantirish.`);
+//             window.open(`https://t.me/${phone}?text=${message}`, "_blank");
+//         });
+//     };
+
+//     return (
+//         <div>
+//             <div className="flex gap-[110px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
+//                 <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
+//                 <h2 className="font-bold text-xl text-center">Ogohlantirish</h2>
+//             </div>
+
+//             <section className="px-[20px]">
+//                 <nav className="mt-[12px]">
+//                     <ul className="bg-[#E5E7EB] px-[2px] py-[4px] flex justify-between rounded-[10px]">
+//                         <li
+//                             onClick={() => setActiveTab("upcoming")}
+//                             className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "upcoming" ? "text-[#197FE6] bg-[#FFFFFF]" : "text-[#6B7280]"}`}
+//                         >
+//                             Yaqinlashayotgan
+//                         </li>
+//                         <li
+//                             onClick={() => setActiveTab("overdue")}
+//                             className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "overdue" ? "text-[#197FE6] bg-[#FFFFFF]" : "text-[#6B7280]"}`}
+//                         >
+//                             Muddati O’tgan
+//                         </li>
+//                     </ul>
+//                 </nav>
+
+//                 <div className="flex mt-[14px] justify-between">
+//                     <h2 className="font-bold text-[15px] text-[#111111]">
+//                         {activeTab === "upcoming" ? "To’lov kuniga 3 kun qolganlar" : "Muddati o’tgan to’lovlar"}
+//                     </h2>
+//                     <span className="text-[11px] font-normal text-[#C2410C] bg-[#FED7AA] px-[6px] py-[8px] rounded-[12px]">
+//                         {filteredAlerts.length}ta ogohlantirish
+//                     </span>
+//                 </div>
+
+//                 <div>
+//                     {filteredAlerts.map(alert => (
+//                         <div key={alert.id} className="bg-[#ffffff] border-[#E5E7EB] border px-[9px] py-[8px] rounded-[12px] mt-[14px]">
+//                             <div className="flex justify-between items-center">
+//                                 <div className="flex gap-[9px] items-center">
+//                                     <span className="bg-[#E5E7EB] text-[12px] font-bold text-[#555555] px-[8px] py-[9px] rounded-full">
+//                                         {alert.fullName?.slice(0, 2).toUpperCase()}
+//                                     </span>
+//                                     <div>
+//                                         <h2 className="text-[#000000] text-[14px] font-bold">{alert.fullName}</h2>
+//                                         <p className="text-[#64748B] text-[11px] font-normal">{alert.phones.join(", ")}</p>
+//                                     </div>
+//                                 </div>
+//                                 <div>
+//                                     <h2 className="text-[#111111] text-[16px] font-bold ml-[15px] mb-[15px]">{Number(alert.amount).toLocaleString()} so’m</h2>
+//                                     <h3 className="text-[#EA580C] text-[11px] font-bold">To'lov sanasi: {alert.daysLeft}kun</h3>
+//                                 </div>
+//                             </div>
+
+//                             {alert.showDateInput && (
+//                                 <div className="mt-[10px] flex gap-[10px]">
+//                                     <input
+//                                         type="date"
+//                                         className="px-[10px] py-[8px] border border-[#E5E7EB] rounded-[12px]"
+//                                         value={alert.newDate}
+//                                         onChange={(e) => handleDateChange(alert.id, e.target.value)}
+//                                     />
+//                                     <button
+//                                         className="bg-[#197FE6] text-[#fff] px-[12px] py-[8px] rounded-[12px] text-[12px] font-bold"
+//                                         onClick={() => saveNewDate(alert.id)}
+//                                     >
+//                                         Save
+//                                     </button>
+//                                 </div>
+//                             )}
+
+//                             <div className="flex justify-between mt-[20px]">
+//                                 <button
+//                                     className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]"
+//                                     onClick={() => toggleDateInput(alert.id)}
+//                                 >
+//                                     To’lov Sanasini o’zgartirish
+//                                 </button>
+
+//                                 <div className="flex gap-[10px]">
+//                                     <FaPhoneVolume size={24} className="text-[red]" onClick={() => handleCall(alert.phones)} />
+//                                     <BsFillChatRightTextFill size={24} className="text-[#169c74]" onClick={() => handleTelegram(alert.phones, alert.fullName)} />
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     ))}
+//                 </div>
+//             </section>
+//         </div>
+//     );
+// }
+
+// export default Alert;
+
+
+
 import React, { useState, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -386,154 +558,201 @@ function Alert() {
     useEffect(() => {
         const unsubscribe = onSnapshot(collection(db, "loaners"), (snapshot) => {
             const data = snapshot.docs.map(docItem => {
+
                 const loaner = docItem.data();
                 const today = new Date();
-                const lastDate = loaner.lastDate ? new Date(loaner.lastDate.seconds ? loaner.lastDate.seconds * 1000 : loaner.lastDate) : today;
-                const diffDays = Math.ceil((lastDate - today) / (1000 * 60 * 60 * 24));
+
+                const deadline = new Date(loaner.deadlineDate);
+
+                const diffDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
 
                 return {
                     id: docItem.id,
-                    fullName: loaner.fullName || "No Name",
-                    phones: [loaner.mainPhone, loaner.secondaryPhone].filter(Boolean),
-                    amount: loaner.amount || 0,
-                    lastDate,
+                    fullName: loaner.fullName,
+                    phone: loaner.phone,
+                    amount: loaner.amount,
+                    deadlineDate: deadline,
                     daysLeft: diffDays,
                     showDateInput: false,
-                    newDate: "",
-                    telegram: loaner.telegram || "",
+                    newDate: ""
                 };
+
             });
+
             setAlerts(data);
         });
+
         return () => unsubscribe();
     }, []);
 
     const filteredAlerts = alerts.filter(alert =>
-        activeTab === "upcoming" ? alert.daysLeft >= 0 && alert.daysLeft <= 3 : alert.daysLeft < 0
+        activeTab === "upcoming"
+            ? alert.daysLeft <= 5 && alert.daysLeft >= 0
+            : alert.daysLeft < 0
     );
 
     const toggleDateInput = (id) => {
-        setAlerts(alerts.map(a => a.id === id ? { ...a, showDateInput: !a.showDateInput } : a));
+        setAlerts(alerts.map(a =>
+            a.id === id ? { ...a, showDateInput: !a.showDateInput } : a
+        ));
     };
 
     const handleDateChange = (id, value) => {
-        setAlerts(alerts.map(a => a.id === id ? { ...a, newDate: value } : a));
+        setAlerts(alerts.map(a =>
+            a.id === id ? { ...a, newDate: value } : a
+        ));
     };
 
     const saveNewDate = async (id) => {
+
         const alertItem = alerts.find(a => a.id === id);
         if (!alertItem.newDate) return;
 
-        // Update in Firestore
-        await updateDoc(doc(db, "loaners", id), { lastDate: new Date(alertItem.newDate) });
-
-        // Update local state
-        const today = new Date();
-        const lastDate = new Date(alertItem.newDate);
-        const diffDays = Math.ceil((lastDate - today) / (1000 * 60 * 60 * 24));
-
-        setAlerts(alerts.map(a => a.id === id ? { ...a, lastDate, daysLeft: diffDays, showDateInput: false, newDate: "" } : a));
-    };
-
-    const handleCall = (phones) => {
-        phones.forEach(phone => window.open(`tel:${phone}`, "_self"));
-    };
-
-    const handleTelegram = (phones, name) => {
-        if (!phones.length) return alert(`No phone numbers for ${name}`);
-        phones.forEach(phone => {
-            const message = encodeURIComponent(`Salom ${name}, sizning to'lovingiz haqida ogohlantirish.`);
-            window.open(`https://t.me/${phone}?text=${message}`, "_blank");
+        await updateDoc(doc(db, "loaners", id), {
+            deadlineDate: alertItem.newDate
         });
+
+    };
+
+    const handleCall = (phone) => {
+        window.open(`tel:${phone}`);
+    };
+
+    const handleTelegram = (phone, name) => {
+        const message = encodeURIComponent(`Salom ${name}, sizning qarzingiz muddati yaqinlashmoqda.`);
+        window.open(`https://t.me/${phone}?text=${message}`, "_blank");
     };
 
     return (
         <div>
-            <div className="flex gap-[110px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border boder-[#E5E7EB]">
-                <Link to="/"><ArrowLeft className="cursor-pointer" /></Link>
-                <h2 className="font-bold text-xl text-center">Ogohlantirish</h2>
+
+            <div className="flex gap-[110px] py-[24px] items-center px-[20px] bg-[#FFFFFF] border">
+                <Link to="/"><ArrowLeft /></Link>
+                <h2 className="font-bold text-xl">Ogohlantirish</h2>
             </div>
 
             <section className="px-[20px]">
+
                 <nav className="mt-[12px]">
                     <ul className="bg-[#E5E7EB] px-[2px] py-[4px] flex justify-between rounded-[10px]">
+
                         <li
                             onClick={() => setActiveTab("upcoming")}
-                            className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "upcoming" ? "text-[#197FE6] bg-[#FFFFFF]" : "text-[#6B7280]"}`}
+                            className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "upcoming" ? "text-[#197FE6] bg-[#FFFFFF]" : ""}`}
                         >
                             Yaqinlashayotgan
                         </li>
+
                         <li
                             onClick={() => setActiveTab("overdue")}
-                            className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "overdue" ? "text-[#197FE6] bg-[#FFFFFF]" : "text-[#6B7280]"}`}
+                            className={`cursor-pointer font-bold text-[13px] py-[5px] px-[30px] rounded-[10px] ${activeTab === "overdue" ? "text-[#197FE6] bg-[#FFFFFF]" : ""}`}
                         >
                             Muddati O’tgan
                         </li>
+
                     </ul>
                 </nav>
 
                 <div className="flex mt-[14px] justify-between">
-                    <h2 className="font-bold text-[15px] text-[#111111]">
-                        {activeTab === "upcoming" ? "To’lov kuniga 3 kun qolganlar" : "Muddati o’tgan to’lovlar"}
+                    <h2 className="font-bold text-[15px]">
+
+                        {activeTab === "upcoming"
+                            ? "To’lov kuniga 5 kun qolganlar"
+                            : "Muddati o’tgan to’lovlar"}
+
                     </h2>
-                    <span className="text-[11px] font-normal text-[#C2410C] bg-[#FED7AA] px-[6px] py-[8px] rounded-[12px]">
-                        {filteredAlerts.length}ta ogohlantirish
+
+                    <span className="text-[11px] bg-[#FED7AA] px-[6px] py-[8px] rounded-[12px]">
+                        {filteredAlerts.length} ta
                     </span>
+
                 </div>
 
-                <div>
-                    {filteredAlerts.map(alert => (
-                        <div key={alert.id} className="bg-[#ffffff] border-[#E5E7EB] border px-[9px] py-[8px] rounded-[12px] mt-[14px]">
-                            <div className="flex justify-between items-center">
-                                <div className="flex gap-[9px] items-center">
-                                    <span className="bg-[#E5E7EB] text-[12px] font-bold text-[#555555] px-[8px] py-[9px] rounded-full">
-                                        {alert.fullName?.slice(0, 2).toUpperCase()}
-                                    </span>
-                                    <div>
-                                        <h2 className="text-[#000000] text-[14px] font-bold">{alert.fullName}</h2>
-                                        <p className="text-[#64748B] text-[11px] font-normal">{alert.phones.join(", ")}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h2 className="text-[#111111] text-[16px] font-bold ml-[15px] mb-[15px]">{Number(alert.amount).toLocaleString()} so’m</h2>
-                                    <h3 className="text-[#EA580C] text-[11px] font-bold">To'lov sanasi: {alert.daysLeft}kun</h3>
-                                </div>
+                {filteredAlerts.map(alert => (
+
+                    <div key={alert.id} className="bg-white border p-[10px] rounded-[12px] mt-[14px]">
+
+                        <div className="flex justify-between">
+
+                            <div>
+
+                                <h2 className="font-bold">{alert.fullName}</h2>
+
+                                <p className="text-[12px] text-gray-500">
+                                    {alert.phone}
+                                </p>
+
                             </div>
 
-                            {alert.showDateInput && (
-                                <div className="mt-[10px] flex gap-[10px]">
-                                    <input
-                                        type="date"
-                                        className="px-[10px] py-[8px] border border-[#E5E7EB] rounded-[12px]"
-                                        value={alert.newDate}
-                                        onChange={(e) => handleDateChange(alert.id, e.target.value)}
-                                    />
-                                    <button
-                                        className="bg-[#197FE6] text-[#fff] px-[12px] py-[8px] rounded-[12px] text-[12px] font-bold"
-                                        onClick={() => saveNewDate(alert.id)}
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            )}
+                            <div className="text-right">
 
-                            <div className="flex justify-between mt-[20px]">
+                                <h2 className="font-bold">
+                                    {Number(alert.amount).toLocaleString()} so'm
+                                </h2>
+
+                                <h3 className="text-orange-500 text-[12px]">
+                                    {alert.daysLeft} kun qoldi
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                        {alert.showDateInput && (
+
+                            <div className="mt-[10px] flex gap-[10px]">
+
+                                <input
+                                    type="date"
+                                    value={alert.newDate}
+                                    onChange={(e) => handleDateChange(alert.id, e.target.value)}
+                                    className="border p-[6px] rounded"
+                                />
+
                                 <button
-                                    className="text-[#374151] bg-[#F3F4F6] text-[12px] font-normal p-[10px] rounded-[12px]"
-                                    onClick={() => toggleDateInput(alert.id)}
+                                    onClick={() => saveNewDate(alert.id)}
+                                    className="bg-blue-500 text-white px-[10px] rounded"
                                 >
-                                    To’lov Sanasini o’zgartirish
+                                    Save
                                 </button>
 
-                                <div className="flex gap-[10px]">
-                                    <FaPhoneVolume size={24} className="text-[red]" onClick={() => handleCall(alert.phones)} />
-                                    <BsFillChatRightTextFill size={24} className="text-[#169c74]" onClick={() => handleTelegram(alert.phones, alert.fullName)} />
-                                </div>
                             </div>
+
+                        )}
+
+                        <div className="flex justify-between mt-[15px]">
+
+                            <button
+                                onClick={() => toggleDateInput(alert.id)}
+                                className="bg-gray-100 p-[6px] rounded"
+                            >
+                                Sanani o’zgartirish
+                            </button>
+
+                            <div className="flex gap-[10px]">
+
+                                <FaPhoneVolume
+                                    size={22}
+                                    className="text-red-500 cursor-pointer"
+                                    onClick={() => handleCall(alert.phone)}
+                                />
+
+                                <BsFillChatRightTextFill
+                                    size={22}
+                                    className="text-green-600 cursor-pointer"
+                                    onClick={() => handleTelegram(alert.phone, alert.fullName)}
+                                />
+
+                            </div>
+
                         </div>
-                    ))}
-                </div>
+
+                    </div>
+
+                ))}
+
             </section>
+
         </div>
     );
 }
