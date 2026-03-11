@@ -382,7 +382,7 @@
 
 import React, { useState } from "react";
 import Logoimg from "../../public/MAX_V_Logo.png";
-import Cashimg from "../../public/Cash.png";
+// import Cashimg from "../../public/Cash.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -407,7 +407,7 @@ function Login() {
     };
 
     return (
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 py-[90px]">
             <center>
                 <img
                     className="pt-[12px] w-[120px] sm:w-[150px] md:w-[180px] mx-auto"
@@ -415,9 +415,9 @@ function Login() {
                     alt=""
                 />
 
-                <div className="bg-[#E6F0FC] max-w-[60px] w-full h-[60px] flex justify-center items-center rounded-[12px] mt-[37px] mx-auto">
+                {/* <div className="bg-[#E6F0FC] max-w-[60px] w-full h-[60px] flex justify-center items-center rounded-[12px] mt-[37px] mx-auto">
                     <img className="w-[28px] h-[28px]" src={Cashimg} alt="" />
-                </div>
+                </div> */}
             </center>
 
             <div className="text-center mt-[8px]">
@@ -470,12 +470,12 @@ function Login() {
                                 </span>
                             </button>
 
-                            <p className="mt-[20px]">
+                            {/* <p className="mt-[20px]">
                                 Akkauntingiz yo'qmi?{" "}
                                 <span className="text-[#2d5bf0] ml-[10px]">
                                     <a href="/Register">Ro'yhatdan O'ting</a>
                                 </span>
-                            </p>
+                            </p> */}
                         </div>
                     </form>
                 </div>
