@@ -227,6 +227,64 @@
 
 
 
+// import React from "react";
+// import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+
+// import Navbar from "./Components/Navbar";
+// import ProtectedRoute from "./ProtectedRoute";
+
+// import Home from "./Pages/Home";
+// import Login from "./Pages/Login";
+// import Register from "./Pages/Register";
+// import ListLoaner from "./Pages/ListLoaner";
+// import Analytics from "./Pages/Analytics";
+// import Alert from "./Pages/Alert";
+// import Profile from "./Pages/Profile";
+// import AddLoan from "./Pages/AddLoan";
+// import ReducLoan from "./Pages/ReducLoan"; // ✅ Correct import
+// import History from "./Pages/History";
+// import Camera from "./Pages/Camera";
+
+// function Layout() {
+//   const location = useLocation();
+//   const hideNavbar = location.pathname === "/login" || location.pathname === "/register";
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 max-w-md mx-auto shadow-lg relative">
+//       <div className="pb-16">
+//         <Routes>
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+
+//           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+//           <Route path="/list" element={<ProtectedRoute><ListLoaner /></ProtectedRoute>} />
+//           <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+//           <Route path="/alert" element={<ProtectedRoute><Alert /></ProtectedRoute>} />
+//           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+//           <Route path="/addloan/:id" element={<ProtectedRoute><AddLoan /></ProtectedRoute>} /> {/* ✅ With ID */}
+//           <Route path="/reducLoan/:id" element={<ProtectedRoute><ReducLoan /></ProtectedRoute>} /> {/* ✅ With ID */}
+//           <Route path="/history/:id" element={<ProtectedRoute><History /></ProtectedRoute>} /> {/* ✅ With ID */}
+//           <Route path="/camera" element={<ProtectedRoute><Camera /></ProtectedRoute>} />
+//         </Routes>
+//       </div>
+
+//       {!hideNavbar && <Navbar />}
+//     </div>
+//   );
+// }
+
+// function App() {
+//   return (
+//     <Router>
+//       <Layout />
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
@@ -241,13 +299,14 @@ import Analytics from "./Pages/Analytics";
 import Alert from "./Pages/Alert";
 import Profile from "./Pages/Profile";
 import AddLoan from "./Pages/AddLoan";
-import ReducLoan from "./Pages/ReducLoan"; // ✅ Correct import
+import ReducLoan from "./Pages/ReducLoan";
 import History from "./Pages/History";
 import Camera from "./Pages/Camera";
 
 function Layout() {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/login" || location.pathname === "/register";
+  const hideNavbarPaths = ["/login", "/register", "/camera"];
+  const hideNavbar = hideNavbarPaths.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-gray-100 max-w-md mx-auto shadow-lg relative">
@@ -255,19 +314,17 @@ function Layout() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/list" element={<ProtectedRoute><ListLoaner /></ProtectedRoute>} />
           <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
           <Route path="/alert" element={<ProtectedRoute><Alert /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/addloan/:id" element={<ProtectedRoute><AddLoan /></ProtectedRoute>} /> {/* ✅ With ID */}
-          <Route path="/reducLoan/:id" element={<ProtectedRoute><ReducLoan /></ProtectedRoute>} /> {/* ✅ With ID */}
-          <Route path="/history/:id" element={<ProtectedRoute><History /></ProtectedRoute>} /> {/* ✅ With ID */}
+          <Route path="/addloan/:id" element={<ProtectedRoute><AddLoan /></ProtectedRoute>} />
+          <Route path="/reducLoan/:id" element={<ProtectedRoute><ReducLoan /></ProtectedRoute>} />
+          <Route path="/history/:id" element={<ProtectedRoute><History /></ProtectedRoute>} />
           <Route path="/camera" element={<ProtectedRoute><Camera /></ProtectedRoute>} />
         </Routes>
       </div>
-
       {!hideNavbar && <Navbar />}
     </div>
   );
